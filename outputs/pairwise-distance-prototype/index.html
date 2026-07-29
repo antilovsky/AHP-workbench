@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>关系距离卡｜交互原型</title>
+  <style>
+    :root{--ink:#12233b;--muted:#62748b;--blue:#2563eb;--soft:#eff6ff;--line:#d7e1ee;--bg:#f4f7fb}*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#eaf3ff,#f7f9fc 50%,#eef6f3);color:var(--ink);font:15px/1.55 system-ui,"Microsoft YaHei",sans-serif}.shell{width:min(850px,calc(100% - 32px));margin:42px auto}.eyebrow{color:#2563eb;font-size:12px;font-weight:800;letter-spacing:.1em}.intro{margin:4px 0 24px;color:var(--muted);max-width:680px}h1{font-size:30px;margin:4px 0}h2{font-size:17px;margin:0}.card{background:#fff;border:1px solid #dce6f1;border-radius:20px;padding:28px;box-shadow:0 12px 30px #17406a12;margin:16px 0}.names{display:grid;grid-template-columns:1fr 1fr;gap:16px}.names label{font-weight:750;color:#465a73}.names input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;margin-top:5px}.prompt{text-align:center;margin:30px 0 13px;font-size:18px;font-weight:800}.directions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}.direction{border:1px solid #cbd8e7;border-radius:12px;background:#fff;padding:12px 8px;color:#40546b;font:inherit;font-weight:750;cursor:pointer}.direction.active{border-color:var(--blue);background:var(--soft);color:#174cba;box-shadow:inset 0 0 0 1px var(--blue)}.distance-stage{position:relative;min-height:230px;margin:25px 0 8px;border-radius:16px;background:linear-gradient(180deg,#fbfdff,#f2f7fd);border:1px solid #e0eaf5;overflow:hidden}.distance-stage::before{content:"";position:absolute;left:50%;top:22px;bottom:28px;border-left:1px dashed #b9c9dd}.name-card{position:absolute;top:45px;width:130px;min-height:76px;padding:13px 10px;border-radius:14px;background:#fff;border:1px solid #c6d5e8;box-shadow:0 5px 14px #203f6012;text-align:center;font-weight:800;display:grid;place-items:center;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.name-card.left{left:calc(50% - 145px);transform:translateX(calc(var(--gap, 0) * -0.45px))}.name-card.right{right:calc(50% - 145px);transform:translateX(calc(var(--gap, 0) * .45px))}.name-card.dominant{border-color:#4e87ed;color:#1547ad;box-shadow:0 8px 18px #2563eb25}.link{position:absolute;top:83px;left:50%;height:3px;width:calc(30px + var(--gap, 0) * 1.2px);background:linear-gradient(90deg,#a9c5fa,#2563eb);border-radius:99px;transform-origin:left;transform:translateX(-50%);transition:width .15s ease,transform .15s ease}.link.to-left{transform:translateX(-50%) scaleX(-1)}.link.equal{width:44px;background:#b7c5d8}.handle-zone{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:min(390px,82%);text-align:center}.handle-label{display:block;font-size:13px;color:#52677e;font-weight:750;margin-bottom:10px}.range-wrap{height:38px;display:grid;place-items:center;position:relative}.range-wrap::before{content:"";position:absolute;left:0;right:0;height:8px;background:#d8e5f4;border-radius:99px}.range-fill{position:absolute;left:0;height:8px;width:0;background:linear-gradient(90deg,#8bb8ff,#2563eb);border-radius:99px;pointer-events:none}input[type=range]{position:relative;width:100%;appearance:none;background:transparent;cursor:ew-resize}input[type=range]::-webkit-slider-thumb{appearance:none;width:27px;height:27px;border-radius:50%;background:#fff;border:4px solid #2563eb;box-shadow:0 2px 8px #17408a45}input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:#fff;border:4px solid #2563eb;box-shadow:0 2px 8px #17408a45}.meaning{text-align:center;font-weight:800;min-height:30px;margin:16px 0 2px}.meaning span{color:#2563eb}.submeaning{text-align:center;color:var(--muted);font-size:13px;margin:0}.actions{display:flex;justify-content:center;margin-top:20px}.reset{border:0;border-radius:9px;padding:9px 14px;background:#e9f0fa;color:#284460;font:inherit;font-weight:750;cursor:pointer}.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0;margin:21px 0 0;list-style:none}.notes li{background:#f7faff;border-radius:11px;padding:11px 12px;color:#52677e;font-size:13px}.notes b{display:block;color:#1d3653;margin-bottom:2px}@media(max-width:580px){.shell{margin:24px auto}.card{padding:20px 15px}.names{grid-template-columns:1fr}.prompt{margin-top:22px}.directions{grid-template-columns:1fr}.distance-stage{min-height:256px}.name-card{width:104px}.name-card.left{left:calc(50% - 116px)}.name-card.right{right:calc(50% - 116px)}.notes{grid-template-columns:1fr}.handle-zone{width:84%}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="eyebrow">INDEPENDENT INTERACTION PROTOTYPE</div>
+    <h1>关系距离卡</h1>
+    <p class="intro">先判断方向，再用“拉开距离”表达这一对对象的差异感。没有数轴、没有刻度；每次比较都从中性状态单独开始。</p>
+
+    <section class="card" aria-label="两两重要性评价控件">
+      <div class="names"><label>对象 A<input id="leftName" value="成本"></label><label>对象 B<input id="rightName" value="质量"></label></div>
+      <div class="prompt" id="prompt">在「成本」与「质量」之间，哪一个更重要？</div>
+      <div class="directions" role="group" aria-label="重要性方向">
+        <button class="direction" data-side="left">成本更重要</button>
+        <button class="direction active" data-side="equal">同等重要</button>
+        <button class="direction" data-side="right">质量更重要</button>
+      </div>
+
+      <div class="distance-stage" id="stage">
+        <div class="name-card left" id="leftCard">成本</div><div class="name-card right" id="rightCard">质量</div><div class="link equal" id="link"></div>
+        <div class="handle-zone"><label class="handle-label" for="distance">拖动以拉开重要性差异</label><div class="range-wrap"><div class="range-fill" id="fill"></div><input id="distance" type="range" min="0" max="100" value="0" disabled aria-label="重要性差异距离"></div></div>
+      </div>
+      <div class="meaning" id="meaning">当前判断：<span>同等重要／具备同等优势</span></div>
+      <p class="submeaning" id="submeaning">这组比较从中性距离开始；选定一方后再拖动。</p>
+      <div class="actions"><button class="reset" id="reset">重置当前比较</button></div>
+      <ul class="notes"><li><b>独立判断</b>每一对对象使用独立的关系距离。</li><li><b>离散映射</b>松手后会映射为 Saaty 的离散强度。</li><li><b>不提前暗示</b>不展示统一数轴或跨对象的比较基准。</li></ul>
+    </section>
+  </main>
+  <script>
+    const leftName=document.querySelector('#leftName'),rightName=document.querySelector('#rightName'),leftCard=document.querySelector('#leftCard'),rightCard=document.querySelector('#rightCard'),prompt=document.querySelector('#prompt'),distance=document.querySelector('#distance'),fill=document.querySelector('#fill'),stage=document.querySelector('#stage'),link=document.querySelector('#link'),meaning=document.querySelector('#meaning'),submeaning=document.querySelector('#submeaning');
+    let side='equal';
+    const labels={1:'同等重要／具备同等优势',2:'略占优势',3:'较为重要／具备一定优势',4:'介于较为与很重要之间',5:'很重要／具备优势',6:'介于很重要与非常重要之间',7:'非常重要／具备很大优势',8:'介于非常与极其重要之间',9:'极其重要／具备极大优势'};
+    function winner(){return side==='left'?leftName.value.trim()||'对象 A':rightName.value.trim()||'对象 B'}
+    function loser(){return side==='left'?rightName.value.trim()||'对象 B':leftName.value.trim()||'对象 A'}
+    function syncNames(){leftCard.textContent=leftName.value||'对象 A';rightCard.textContent=rightName.value||'对象 B';prompt.textContent=`在「${leftCard.textContent}」与「${rightCard.textContent}」之间，哪一个更重要？`;document.querySelectorAll('.direction').forEach(b=>b.textContent=b.dataset.side==='left'?`${leftCard.textContent}更重要`:b.dataset.side==='right'?`${rightCard.textContent}更重要`:'同等重要');render()}
+    function strength(){return Math.max(2,Math.min(9,Math.round(1+(+distance.value/100)*8)))}
+    function render(){let gap=side==='equal'?0:+distance.value;stage.style.setProperty('--gap',gap);fill.style.width=`${gap}%`;leftCard.classList.toggle('dominant',side==='left');rightCard.classList.toggle('dominant',side==='right');link.className=`link ${side==='equal'?'equal':side==='left'?'to-left':''}`;distance.disabled=side==='equal';document.querySelectorAll('.direction').forEach(b=>b.classList.toggle('active',b.dataset.side===side));if(side==='equal'){meaning.innerHTML='当前判断：<span>同等重要／具备同等优势</span>';submeaning.textContent='这组比较从中性距离开始；选定一方后再拖动。'}else{let s=strength();meaning.innerHTML=`当前判断：<span>${winner()} 相对 ${loser()}「${labels[s]}」</span>`;submeaning.textContent='距离仅代表这一对对象的主观差异感；松开后映射为后台的离散判断值。'}}
+    document.querySelectorAll('.direction').forEach(b=>b.addEventListener('click',()=>{side=b.dataset.side;if(side!=='equal'&&+distance.value===0)distance.value=32;render()}));
+    distance.addEventListener('input',render);leftName.addEventListener('input',syncNames);rightName.addEventListener('input',syncNames);document.querySelector('#reset').addEventListener('click',()=>{side='equal';distance.value=0;render()});render();
+  </script>
+</body>
+</html>
