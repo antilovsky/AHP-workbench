@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>重要度空间图｜交互原型</title>
+  <style>
+    :root{--ink:#13243a;--muted:#61748c;--blue:#2563eb;--blue-soft:#eaf2ff;--line:#d7e2ef;--bg:#f4f7fb}*{box-sizing:border-box}body{margin:0;background:linear-gradient(140deg,#edf5ff,#f8fafc 46%,#ecf7f1);color:var(--ink);font:15px/1.55 system-ui,"Microsoft YaHei",sans-serif}.shell{width:min(1120px,calc(100% - 32px));margin:38px auto}.eyebrow{font-size:12px;font-weight:850;letter-spacing:.11em;color:#2563eb}h1{font-size:30px;line-height:1.2;margin:5px 0}.intro{color:var(--muted);max-width:760px;margin:0 0 22px}.card{background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:25px;box-shadow:0 12px 30px #193d6610}.map{position:relative;height:470px;border:1px solid #d9e5f2;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#fcfdff,#f2f7fd)}.map::before{content:"重要度趋势";position:absolute;top:16px;left:50%;transform:translateX(-50%);font-size:12px;color:#8aa0b8;font-weight:750;letter-spacing:.08em}.edge{position:absolute;bottom:27px;font-size:13px;font-weight:800;color:#526981}.edge.left{left:22px}.edge.right{right:22px}.axis{position:absolute;left:48px;right:48px;bottom:49px;height:2px;background:#b7c8dc}.axis::before,.axis::after{content:"";position:absolute;top:50%;width:9px;height:9px;border-top:2px solid #b7c8dc;border-right:2px solid #b7c8dc}.axis::before{left:0;transform:translateY(-50%) rotate(-135deg)}.axis::after{right:0;transform:translateY(-50%) rotate(45deg)}.tip{position:absolute;top:50px;left:50%;transform:translateX(-50%);font-size:13px;color:#6b8097;background:#ffffffba;border:1px solid #e0e9f3;border-radius:99px;padding:5px 11px;white-space:nowrap}.point{position:absolute;width:18px;height:18px;border:0;border-radius:50%;background:#2870e8;box-shadow:0 2px 0 #174da9,0 3px 11px #2563eb55;transform:translate(-50%,-50%);cursor:grab;touch-action:none;z-index:3}.point:active{cursor:grabbing}.point.selected{width:23px;height:23px;background:#174fc0;box-shadow:0 0 0 5px #bfdbfe,0 3px 0 #113b91}.point-label{position:absolute;top:-31px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#fff;border:1px solid #ccdbea;border-radius:8px;padding:3px 8px;font-size:13px;font-weight:800;color:#27425d;pointer-events:none}.point.selected .point-label{border-color:#7eabf4;color:#1747aa}.stem{position:absolute;width:1px;background:#a4c5f7;opacity:.7;z-index:1}.projected-line{position:absolute;height:5px;background:linear-gradient(90deg,#91b9fb,#2563eb);border-radius:99px;bottom:47px;z-index:2;display:none}.projected-line::before,.projected-line::after{content:"";position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:#2563eb;transform:translateY(-50%)}.projected-line::before{left:0}.projected-line::after{right:0}.controls{display:flex;justify-content:space-between;gap:14px;margin:15px 0 0;align-items:center}.help{color:var(--muted);font-size:13px}.reset{border:0;border-radius:9px;padding:9px 13px;background:#eaf1fa;color:#294862;font:inherit;font-weight:750;cursor:pointer;white-space:nowrap}.result{margin-top:18px;border:1px solid #dbe7f5;border-radius:14px;padding:17px 18px;background:#f9fbff}.result h2{font-size:16px;margin:0 0 5px}.result p{margin:3px 0;color:#536a82}.result strong{color:#174db3}.result .empty{color:#758aa0}.explain{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.explain div{background:#f7faff;border-radius:11px;padding:12px 13px;color:#526981;font-size:13px}.explain b{display:block;color:#203c59;margin-bottom:2px}@media(max-width:650px){.shell{width:min(100% - 20px,1120px);margin:22px auto}.card{padding:14px}.map{height:430px}.tip{white-space:normal;text-align:center;max-width:80%;top:14px}.axis{left:27px;right:27px}.edge.left{left:13px}.edge.right{right:13px}.controls{align-items:flex-start;flex-direction:column}.explain{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="eyebrow">INDEPENDENT INTERACTION PROTOTYPE</div>
+    <h1>重要度空间图</h1>
+    <p class="intro">拖动点的位置来形成整体的重要度结构。横向位置决定重要度趋势；纵向位置只用于让点互不遮挡。点击任意两个点，查看它们的横向差异如何映射为相对重要度。</p>
+    <section class="card">
+      <div class="map" id="map" aria-label="重要度空间图"><div class="tip">拖动点；再点击两个点进行比较</div><div class="projected-line" id="line"></div><div class="axis"></div><span class="edge left">较不重要</span><span class="edge right">较重要</span></div>
+      <div class="controls"><span class="help">提示：点的上下位置不参与计算；选中两点后，底部投影线表示实际用于计算的横向距离。</span><button class="reset" id="reset">恢复示例布局</button></div>
+      <div class="result" id="result"><h2>请选择两个指标</h2><p class="empty">两个点的横向距离将被映射为后台相对比值；点越靠右，代表整体上越重要。</p></div>
+      <div class="explain"><div><b>整体判断</b>所有点处于同一潜在重要度轴上。</div><div><b>对数映射</b>横向距离映射为相对比值，而非线性相加。</div><div><b>一致性起点</b>该模式可形成一个天然协调的初始矩阵。</div></div>
+    </section>
+  </main>
+  <script>
+    const map=document.querySelector('#map'),line=document.querySelector('#line'),result=document.querySelector('#result');
+    const initial=[['成本',17,74],['质量',71,43],['交付周期',38,61],['品牌',55,80],['创新性',83,70]];
+    let items=initial.map(([name,x,y],i)=>({name,x,y,id:i})),selected=[],drag=null,skipClick=false;
+    const range=[1,2,3,4,5,6,7,8,9];
+    function usable(){const r=map.getBoundingClientRect();return {w:r.width,h:r.height,left:28,right:28,bottom:64,top:78}}
+    function scaleRatio(dx){return Math.pow(9,Math.abs(dx)/100)}
+    function nearest(v){return range.reduce((best,n)=>Math.abs(n-v)<Math.abs(best-v)?n:best,1)}
+    function clearNodes(){map.querySelectorAll('.point,.stem').forEach(n=>n.remove())}
+    function render(){clearNodes();const u=usable();items.forEach(item=>{const px=u.left+(u.w-u.left-u.right)*item.x/100,py=u.top+(u.h-u.top-u.bottom)*item.y/100;const stem=document.createElement('div');stem.className='stem';stem.style.left=`${px}px`;stem.style.top=`${py}px`;stem.style.height=`${u.h-u.bottom-py}px`;map.append(stem);const dot=document.createElement('button');dot.className=`point ${selected.includes(item.id)?'selected':''}`;dot.style.left=`${px}px`;dot.style.top=`${py}px`;dot.setAttribute('aria-label',item.name);dot.innerHTML=`<span class="point-label">${item.name}</span>`;dot.addEventListener('pointerdown',e=>startDrag(e,item.id));dot.addEventListener('click',()=>{if(!skipClick)choose(item.id);skipClick=false});map.append(dot)});renderRelation()}
+    function choose(id){if(selected.includes(id))selected=selected.filter(x=>x!==id);else if(selected.length<2)selected=[...selected,id];else selected=[selected[1],id];render()}
+    function startDrag(e,id){e.preventDefault();drag={id,moved:false};window.addEventListener('pointermove',move);window.addEventListener('pointerup',end,{once:true})}
+    function move(e){if(!drag)return;const u=usable(),it=items.find(x=>x.id===drag.id);it.x=Math.max(0,Math.min(100,((e.clientX-map.getBoundingClientRect().left-u.left)/(u.w-u.left-u.right))*100));it.y=Math.max(3,Math.min(94,((e.clientY-map.getBoundingClientRect().top-u.top)/(u.h-u.top-u.bottom))*100));drag.moved=true;render()}
+    function end(){skipClick=!!drag?.moved;drag=null;window.removeEventListener('pointermove',move)}
+    function renderRelation(){if(selected.length!==2){line.style.display='none';return}const a=items.find(x=>x.id===selected[0]),b=items.find(x=>x.id===selected[1]),u=usable(),x1=u.left+(u.w-u.left-u.right)*a.x/100,x2=u.left+(u.w-u.left-u.right)*b.x/100;line.style.display='block';line.style.left=`${Math.min(x1,x2)}px`;line.style.width=`${Math.max(12,Math.abs(x2-x1))}px`;const right=a.x>b.x?a:b,left=a.x>b.x?b:a,ratio=scaleRatio(a.x-b.x),s=nearest(ratio),pct=Math.abs(a.x-b.x).toFixed(1);result.innerHTML=`<h2>「${right.name}」相对「${left.name}」更重要</h2><p>横向差异：<strong>${pct}%</strong>；连续比值约为 <strong>${ratio.toFixed(2)}</strong>；建议映射为 Saaty <strong>${s}</strong>。</p><p>这里使用的是横轴投影距离，因此上下移动不会改变结果。若将该图用于 AHP，所有成对关系会从同一组点位导出。</p>`}
+    document.querySelector('#reset').addEventListener('click',()=>{items=initial.map(([name,x,y],i)=>({name,x,y,id:i}));selected=[];render();result.innerHTML='<h2>请选择两个指标</h2><p class="empty">两个点的横向距离将被映射为后台相对比值；点越靠右，代表整体上越重要。</p>'});
+    window.addEventListener('resize',render);render();
+  </script>
+</body>
+</html>

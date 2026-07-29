@@ -2,11 +2,11 @@
 
 一个无需安装、可在浏览器中直接运行的层次分析法（AHP）决策工具。它将指标权重、方案评价、一致性检验、子指标筛选和结果排序整合在一个交互式页面中。
 
-线上体验地址：[AHP 决策工作台](https://antilovsky.github.io/AHP-workbench/outputs/ahp-app/)
+线上体验地址：[AHP 决策工作台](https://antilovsky.github.io/AHP-workbench/)
 
 ## 功能
 
-- 单人或群体决策；群体结果可按加权几何平均或加权算术平均汇总
+- 单人或群体决策；群体结果可按等权或成员加权的几何平均汇总
 - 基本 AHP 与最低期望水平 AHP
 - 最多 15 个评价指标，并支持为指标设置子指标
 - 指标、子指标与方案两两比较；使用行几何平均法计算权重
@@ -43,16 +43,32 @@
 
 ## 数据与隐私
 
-该工具为纯前端静态页面。填写的数据保留在当前浏览器会话中；如需长期保存，请使用页面中的 JSON 导出功能。导入同一份 JSON 可复现相应的决策过程。
+该工具为纯前端静态页面。填写的数据保存在当前浏览器的本地存储中；如需备份或迁移，请使用页面中的 JSON 导出功能。导入同一份 JSON 可复现相应的决策过程。
 
 ## 本地文件结构
 
 ```text
-index.html              # 应用主文件
+index.html              # 根目录应用入口，也是 GitHub Pages 首页
 assets/                 # 页头品牌标识等静态资源
-outputs/                # 本地输出或测试文件
+src/                    # AHP 计算、迁移与校验核心
+tests/                  # 自动化测试
+scripts/                # 应用结构与部署检查
+outputs/                # 交互原型等辅助文件
+package.json            # 测试与检查命令
 ```
 
 ## 开发与发布
 
-本地修改主要在 `index.html` 中完成。部署版本位于 GitHub 仓库的 `outputs/ahp-app/index.html`，由 GitHub Pages 发布。
+应用从仓库根目录的 `index.html` 启动，并依赖同级的 `src/` 与 `assets/`。GitHub Pages 应配置为从目标分支的仓库根目录发布，因此线上入口为：
+
+```text
+https://antilovsky.github.io/AHP-workbench/
+```
+
+提交或发布前运行：
+
+```bash
+npm run verify
+```
+
+其中 `npm run check` 检查脚本语法、重复关键函数、资源与根目录部署路径，`npm test` 验证 AHP 权重、一致性、加权几何平均、数据迁移和导入校验。
