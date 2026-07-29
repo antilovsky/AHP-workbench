@@ -2,7 +2,7 @@
 
 一个无需安装、可在浏览器中直接运行的层次分析法（AHP）决策工具。它将指标权重、方案评价、一致性检验、子指标筛选和结果排序整合在一个交互式页面中。
 
-线上体验地址：[AHP 决策工作台](https://antilovsky.github.io/AHP-workbench/)
+开始操作：[AHP 决策工作台](https://antilovsky.github.io/AHP-workbench/)
 
 ## 功能
 
