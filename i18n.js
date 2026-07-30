@@ -18,6 +18,12 @@
       '6 结果': '6 結果',
       '3 方案评价': '3 代替案評価',
       '4 结果': '4 結果',
+      '5 方案评价备览表': '5 チェックリスト',
+      '6 方案评价': '6 代替案評価',
+      '7 结果': '7 結果',
+      '3 方案评价备览表': '3 チェックリスト',
+      '4 方案评价': '4 代替案評価',
+      '5 结果': '5 結果',
       '决策结构': '意思決定構造',
       '决策课题': '意思決定課題',
       'AHP 流程': 'AHP方式',
@@ -53,6 +59,13 @@
       '全局权重': '総合ウェイト',
       '累计权重': '累積ウェイト',
       '方案评价': '代替案評価',
+      '方案评价备览表（可选）': '代替案評価チェックリスト（任意）',
+      '指标名称': '評価基準名',
+      '指标向性': '評価基準の性格',
+      '判别向量': '判断ベクトル',
+      '例：成本金额': '例：コスト金額',
+      '例：1万元': '例：1万円',
+      '填写最低期望水平': '希求水準を入力',
       '排名': '順位',
       '方案': '代替案',
       '综合得分': '総合得点',
@@ -118,6 +131,12 @@
       '6 结果': '6 Results',
       '3 方案评价': '3 Alternative Evaluation',
       '4 结果': '4 Results',
+      '5 方案评价备览表': '5 Checklist',
+      '6 方案评价': '6 Alternative Evaluation',
+      '7 结果': '7 Results',
+      '3 方案评价备览表': '3 Checklist',
+      '4 方案评价': '4 Alternative Evaluation',
+      '5 结果': '5 Results',
       '决策结构': 'Decision Structure',
       '决策课题': 'Decision Goal',
       'AHP 流程': 'AHP Method',
@@ -153,6 +172,13 @@
       '全局权重': 'Global Weight',
       '累计权重': 'Cumulative Weight',
       '方案评价': 'Alternative Evaluation',
+      '方案评价备览表（可选）': 'Alternative Evaluation checklist (optional)',
+      '指标名称': 'Criterion Name',
+      '指标向性': 'Criterion Direction',
+      '判别向量': 'decision vector',
+      '例：成本金额': 'Example: Cost amount',
+      '例：1万元': 'Example: USD 10,000',
+      '填写最低期望水平': 'Enter aspiration level',
       '排名': 'Rank',
       '方案': 'Alternative',
       '综合得分': 'Overall Score',
@@ -244,6 +270,8 @@
       ,'一致性检查未全部通过，本结果仅供复核。': 'すべての整合性検定を通過していないため、この結果は確認用です。'
       ,'ABC 分析筛选后，仅突出显示入选子指标；未入选项已排除。': 'ABC分析後は選定された要因のみを強調し、未選定項目は除外します。'
       ,'已显示子指标层。': '要因層を表示しています。'
+      ,'集中记录各评价指标的向性与候选方案资料，供后续方案成对比较时参考；本表内容不会自动改变 AHP 判断矩阵。': '各評価基準の性格と代替案データを一覧化し、後続の一対比較で参照します。この表の内容がAHP判断行列を自動的に変更することはありません。'
+      ,'“+”为正向指标，即指数值越高表现越好的指标；“-”为负向指标，即指数值越接近于0表现越好的指标。': '「+」は正方向の評価基準で、値が高いほど優れていることを示します。「-」は負方向の評価基準で、値が0に近いほど優れていることを示します。'
     },
     en: {
       '最多 15 项；项目较多时建议通过子指标建立层次结构。': 'Up to 15 items. For larger sets, organize the decision into subcriteria.',
@@ -280,6 +308,8 @@
       ,'一致性检查未全部通过，本结果仅供复核。': 'Not all consistency checks passed; use this result for review only.'
       ,'ABC 分析筛选后，仅突出显示入选子指标；未入选项已排除。': 'After ABC analysis, only selected subcriteria are emphasized; unselected items are excluded.'
       ,'已显示子指标层。': 'The subcriteria level is shown.'
+      ,'集中记录各评价指标的向性与候选方案资料，供后续方案成对比较时参考；本表内容不会自动改变 AHP 判断矩阵。': 'Record criterion directions and alternative data in one place for reference during later pairwise comparisons. Entries in this table do not automatically change the AHP judgment matrices.'
+      ,'“+”为正向指标，即指数值越高表现越好的指标；“-”为负向指标，即指数值越接近于0表现越好的指标。': '“+” indicates a positive criterion, where higher values mean better performance; “-” indicates a negative criterion, where values closer to 0 mean better performance.'
     }
   };
 
@@ -378,7 +408,8 @@
     out = out
       .replace(/^例如：≥ 85 分$/, ja ? '例：85点以上' : 'Example: ≥ 85')
       .replace(/^拖动或选择 (.+)$/, ja ? '$1をドラッグまたは選択' : 'Drag or select $1')
-      .replace(/^(\d+) 对 (\d+) 的相对重要度$/, ja ? '$1対$2の相対重要度' : 'Relative importance of $1 versus $2');
+      .replace(/^(\d+) 对 (\d+) 的相对重要度$/, ja ? '$1対$2の相対重要度' : 'Relative importance of $1 versus $2')
+      .replace(/^(.+)的指标向性$/, ja ? '$1の性格' : '$1 criterion direction');
     return out;
   }
 
